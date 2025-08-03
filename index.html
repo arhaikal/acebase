@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AceBase - Business Management for Padel Coaches</title>
+    <meta name="description" content="The all-in-one platform for padel coaches. Automate admin work, focus on coaching. Join the waiting list today.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h2>AceBase</h2>
+            </div>
+            <div class="nav-links">
+                <a href="#problem">Why Us?</a>
+                <a href="#features">Features</a>
+                <a href="#waitlist" class="cta-btn-small">Join Waitlist</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>You Coach. We Handle the Rest.</h1>
+                    <p class="hero-subtitle">The simple platform that helps you manage students, automate admin work, and grow your revenue.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">10x</span>
+                            <span class="stat-label">Faster Admin</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Less Burnout</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2x</span>
+                            <span class="stat-label">More Revenue</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-cta">
+                        <form class="email-form" id="heroForm" action="https://gmail.us2.list-manage.com/subscribe/post-json?u=89055237b2ccd396a4b40df15&amp;id=7163ed5583" method="POST">
+                            <input type="email" name="EMAIL" placeholder="Enter your email address" required>
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                                <input type="text" name="b_89055237b2ccd396a4b40df15_7163ed5583" tabindex="-1" value="">
+                            </div>
+                            <button type="submit">Get early access</button>
+                        </form>
+                        <p class="form-note">Built with input from real coaches. Join the early access list and help shape the future.</p>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="dashboard-preview">
+                        <div class="dashboard-header">
+                            <div class="dashboard-title">Today's Schedule</div>
+                            <div class="dashboard-date" id="dashboardDate">Today</div>
+                        </div>
+                        
+                        <!-- Schedule Notifications -->
+                        <div class="schedule-notifications" id="scheduleNotifications">
+                            <!-- Notifications will be dynamically inserted here -->
+                        </div>
+                        
+                        <div class="dashboard-content">
+                            <div class="session-card">
+                                <div class="session-time">09:00</div>
+                                <div class="session-info">
+                                    <div class="session-name">Advanced Padel</div>
+                                    <div class="session-students">4/4 players • Court 1</div>
+                                </div>
+                                <div class="session-status confirmed">Confirmed</div>
+                            </div>
+                            <div class="session-card">
+                                <div class="session-time">11:00</div>
+                                <div class="session-info">
+                                    <div class="session-name">Beginner Padel</div>
+                                    <div class="session-students">2/4 players • Court 2</div>
+                                </div>
+                                <div class="session-status available">2 spots available</div>
+                            </div>
+                            <div class="session-card">
+                                <div class="session-time">15:00</div>
+                                <div class="session-info">
+                                    <div class="session-name">Private Padel</div>
+                                    <div class="session-students">Sarah Martinez</div>
+                                </div>
+                                <div class="session-status confirmed">Confirmed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Problems Every Padel Coach Faces</h2>
+                <p>Stop spending hours on admin work. Focus on what you love: coaching padel.</p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>Too Much Admin Work</h3>
+                    <p>Scheduling, payments, and player management eat up hours every week.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Lost Revenue</h3>
+                    <p>Empty spots, late payments, and missed sessions are costing you money.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Less Time Coaching</h3>
+                    <p>For every hour on court, coaches spend up to 40 minutes on admin work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Everything in one place</h2>
+                <p>Simple tools to automate your admin work and grow your coaching business.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Player management</h3>
+                    <p>Track player levels, progress, and preferences automatically</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🗓</div>
+                    <h3>Smart scheduling</h3>
+                    <p>Set up classes, manage waitlists, and fill empty spots automatically</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Easy payments</h3>
+                    <p>Accept payments online and stop chasing invoices</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Automated messaging</h3>
+                    <p>Send reminders, updates, and notifications automatically</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Team management</h3>
+                    <p>Perfect for clubs with multiple coaches and administrators</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Automatic waitlists</h3>
+                    <p>Fill cancellations instantly and maximize your revenue</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waiting List CTA -->
+    <section id="waitlist" class="waitlist-section">
+        <div class="container">
+            <div class="waitlist-content">
+                <h2>Stay in the loop</h2>
+                <p>Join our waitlist for product updates and early access.</p>
+                
+                <form class="email-form large" id="mainForm" action="https://gmail.us2.list-manage.com/subscribe/post-json?u=89055237b2ccd396a4b40df15&amp;id=7163ed5583" method="POST">
+                    <input type="email" name="EMAIL" placeholder="Enter your email address" required>
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                        <input type="text" name="b_89055237b2ccd396a4b40df15_7163ed5583" tabindex="-1" value="">
+                    </div>
+                    <button type="submit">Join the Waitlist</button>
+                </form>
+                
+                <div class="waitlist-benefits">
+                    <div class="benefit">
+                        <span class="benefit-icon">🎯</span>
+                        <span>Early access priority</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">💰</span>
+                        <span>25% launch discount</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">📧</span>
+                        <span>Product updates</span>
+                    </div>
+                </div>
+                
+            
+                
+                <p class="privacy-note">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AceBase</h3>
+                    <p>Business management platform for padel coaches</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#features">Features</a>
+                    <a href="#problem">Solution</a>
+                    <a href="#waitlist">Waitlist</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AceBase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Welcome to AceBase!</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <p id="modalMessage">You're now on our waiting list! We'll notify you as soon as AceBase is ready to transform your padel coaching business.</p>
+                <p><strong>What's next?</strong></p>
+                <ul id="modalSteps">
+                    <li>We'll send you exclusive updates on our progress</li>
+                    <li>You'll get early access when we launch</li>
+                    <li>Special pricing just for early supporters</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
