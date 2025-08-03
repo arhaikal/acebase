@@ -41,7 +41,8 @@
     --font-size-2xl: 1.5rem;
     --font-size-3xl: 1.875rem;
     --font-size-4xl: 2.25rem;
-    --font-size-5xl: 4.9rem;
+    --font-size-5xl: 3.5rem;
+    --font-size-6xl: 4.9rem;
     
     /* Spacing */
     --space-1: 0.25rem;
@@ -146,9 +147,15 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: calc(80px + var(--space-24)) 0 var(--space-24);
+    padding: calc(30px + var(--space-24)) 0 var(--space-24);
     background: var(--background);
     overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .hero {
+        padding: calc(80px + var(--space-24)) 0 var(--space-24);
+    }
 }
 
 /* Social Proof Elements */
@@ -252,7 +259,7 @@ body {
 
 @media (min-width: 768px) {
     .hero h1 {
-        font-size: var(--font-size-5xl);
+        font-size: var(--font-size-6xl);
         letter-spacing: -0.025em;
     }
 }
@@ -1304,7 +1311,7 @@ body {
     }
     
     .hero h1 {
-        font-size: var(--font-size-3xl);
+        font-size: var(--font-size-5xl);
     }
     
     .hero-stats {
