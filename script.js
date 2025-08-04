@@ -108,18 +108,58 @@ function initializeEmailForms() {
             e.preventDefault(); // Prevent default form submission
             
             const submitButton = form.querySelector('button[type="submit"]');
+            const formInputs = form.querySelectorAll('input, textarea, select');
             const emailInput = form.querySelector('input[type="email"]');
             const email = emailInput.value.trim();
+
+            // Validate email format
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!email || !emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                emailInput.focus();
+                return;
+            }
             
             // Show loading state
             submitButton.disabled = true;
             submitButton.textContent = 'Joining...';
-            emailInput.disabled = true;
+            formInputs.forEach(input => {
+                input.disabled = true;
+            });
 
             try {
                 // Create URL with parameters
                 const url = new URL(form.action);
+                
+                // Add email first (required by Mailchimp)
                 url.searchParams.append('EMAIL', email);
+
+                // Check for additional fields and add them if present
+                const nameInput = form.querySelector('#name');
+                if (nameInput) {
+                    const fullName = nameInput.value.trim();
+                    const nameParts = fullName.split(' ').filter(part => part.length > 0);
+                    const firstName = nameParts[0] || '';
+                    const lastName = nameParts.slice(1).join(' ') || '';
+                    url.searchParams.append('FNAME', firstName);
+                    url.searchParams.append('LNAME', lastName);
+                }
+
+                const sportInput = form.querySelector('#sport');
+                if (sportInput) {
+                    url.searchParams.append('SPORT', sportInput.value);
+                }
+
+                const struggleInput = form.querySelector('#struggle');
+                if (struggleInput) {
+                    url.searchParams.append('STRUGGLE', struggleInput.value);
+                }
+                
+                // Add the hidden field for bot protection
+                const hiddenInput = form.querySelector('input[tabindex="-1"]');
+                if (hiddenInput) {
+                    url.searchParams.append(hiddenInput.getAttribute('name'), hiddenInput.value);
+                }
                 
                 // Add callback parameter for JSONP
                 const script = document.createElement('script');
@@ -159,8 +199,16 @@ function initializeEmailForms() {
                 const response = await responsePromise;
                 
                 if (response.result === 'success') {
-                    // Success! Show success message
-                    emailInput.value = '';
+                    // Clear all fields that exist in the form
+                    const inputs = form.querySelectorAll('input:not([tabindex="-1"]), select, textarea');
+                    inputs.forEach(input => {
+                        if (input.type !== 'submit') {
+                            input.value = '';
+                        }
+                        if (input.tagName === 'SELECT') {
+                            input.selectedIndex = 0;
+                        }
+                    });
                     submitButton.textContent = 'Joined!';
                     
                     // Update modal content
@@ -202,7 +250,9 @@ function initializeEmailForms() {
             } finally {
                 // Re-enable form
                 submitButton.disabled = false;
-                emailInput.disabled = false;
+                formInputs.forEach(input => {
+                    input.disabled = false;
+                });
             }
         });
     });
