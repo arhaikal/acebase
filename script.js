@@ -6,26 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    // Initialize email forms
-    initializeEmailForms();
-    
     // Set today's date in dashboard
     setTodaysDate();
-    
+
     // Initialize smooth scrolling
     initializeSmoothScrolling();
-    
+
     // Initialize navbar scroll effect
     initializeNavbarEffect();
-    
+
     // Initialize animations on scroll
     initializeScrollAnimations();
-    
+
     // Initialize schedule animation
     initializeScheduleAnimation();
-    
-    // Initialize modal functionality
-    initializeModal();
 }
 
 function setTodaysDate() {
@@ -59,203 +53,6 @@ function animateNumber(element, from, to) {
     }
     
     requestAnimationFrame(update);
-}
-
-// Modal Functions
-function showModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    const modal = document.getElementById('successModal');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-}
-
-// Initialize modal close functionality
-function initializeModal() {
-    const modal = document.getElementById('successModal');
-    const closeButton = modal.querySelector('.modal-close');
-    
-    // Close on clicking X button
-    if (closeButton) {
-        closeButton.addEventListener('click', closeModal);
-    }
-    
-    // Close on clicking outside
-    modal.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
-    
-    // Close on Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && modal.classList.contains('show')) {
-            closeModal();
-        }
-    });
-}
-
-// Email Form Handling
-function initializeEmailForms() {
-    const forms = document.querySelectorAll('.email-form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Prevent default form submission
-            
-            const submitButton = form.querySelector('button[type="submit"]');
-            const formInputs = form.querySelectorAll('input, textarea, select');
-            const emailInput = form.querySelector('input[type="email"]');
-            const email = emailInput.value.trim();
-
-            // Validate email format
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (!email || !emailRegex.test(email)) {
-                alert('Please enter a valid email address');
-                emailInput.focus();
-                return;
-            }
-            
-            // Show loading state
-            submitButton.disabled = true;
-            submitButton.textContent = 'Joining...';
-            formInputs.forEach(input => {
-                input.disabled = true;
-            });
-
-            try {
-                // Create URL with parameters
-                const url = new URL(form.action);
-                
-                // Add email first (required by Mailchimp)
-                url.searchParams.append('EMAIL', email);
-
-                // Check for additional fields and add them if present
-                const nameInput = form.querySelector('#name');
-                if (nameInput) {
-                    const fullName = nameInput.value.trim();
-                    const nameParts = fullName.split(' ').filter(part => part.length > 0);
-                    const firstName = nameParts[0] || '';
-                    const lastName = nameParts.slice(1).join(' ') || '';
-                    url.searchParams.append('FNAME', firstName);
-                    url.searchParams.append('LNAME', lastName);
-                }
-
-                const sportInput = form.querySelector('#sport');
-                if (sportInput) {
-                    url.searchParams.append('SPORT', sportInput.value);
-                }
-
-                const struggleInput = form.querySelector('#struggle');
-                if (struggleInput) {
-                    url.searchParams.append('STRUGGLE', struggleInput.value);
-                }
-                
-                // Add the hidden field for bot protection
-                const hiddenInput = form.querySelector('input[tabindex="-1"]');
-                if (hiddenInput) {
-                    url.searchParams.append(hiddenInput.getAttribute('name'), hiddenInput.value);
-                }
-                
-                // Add callback parameter for JSONP
-                const script = document.createElement('script');
-                const callbackName = 'mailchimpCallback_' + Math.random().toString(36).substring(2);
-                url.searchParams.append('c', callbackName);
-                
-                // Create promise to handle JSONP response
-                const responsePromise = new Promise((resolve, reject) => {
-                    window[callbackName] = (response) => {
-                        if (response && typeof response === 'object') {
-                            delete window[callbackName];
-                            script.remove();
-                            resolve(response);
-                        }
-                    };
-                    
-                    // Handle script load error
-                    script.onerror = () => {
-                        delete window[callbackName];
-                        script.remove();
-                        reject(new Error('Failed to load'));
-                    };
-
-                    // Add timeout
-                    setTimeout(() => {
-                        delete window[callbackName];
-                        script.remove();
-                        reject(new Error('Request timed out'));
-                    }, 10000);
-                });
-                
-                // Add script to document
-                script.src = url.toString();
-                document.body.appendChild(script);
-                
-                // Wait for response
-                const response = await responsePromise;
-                
-                if (response.result === 'success') {
-                    // Clear all fields that exist in the form
-                    const inputs = form.querySelectorAll('input:not([tabindex="-1"]), select, textarea');
-                    inputs.forEach(input => {
-                        if (input.type !== 'submit') {
-                            input.value = '';
-                        }
-                        if (input.tagName === 'SELECT') {
-                            input.selectedIndex = 0;
-                        }
-                    });
-                    submitButton.textContent = 'Joined!';
-                    
-                    // Update modal content
-                    const modalTitle = document.getElementById('modalTitle');
-                    const modalMessage = document.getElementById('modalMessage');
-                    const modalSteps = document.getElementById('modalSteps');
-                    
-                    modalTitle.textContent = '🎉 Welcome to AceBase!';
-                    modalMessage.textContent = response.msg || 'Thanks for joining! We\'ll keep you updated on our progress.';
-                    
-                    modalSteps.innerHTML = `
-                        <li>We'll send you exclusive updates on our progress</li>
-                        <li>You'll get early access when we launch</li>
-                        <li>25% launch discount just for early supporters</li>
-                        <li>First to hear about new features and improvements</li>
-                    `;
-                    
-                    // Show success modal
-                    showModal();
-                    
-                    // Reset button text after delay
-                    setTimeout(() => {
-                        submitButton.textContent = form.id === 'heroForm' ? 'Get early access' : 'Join the Waitlist';
-                    }, 2000);
-                } else {
-                    // Show error message from Mailchimp
-                    throw new Error(response.msg || 'Submission failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                submitButton.textContent = 'Try again';
-                
-                // Show error message in a more user-friendly way
-                const errorMessage = error.message.includes('already subscribed') 
-                    ? 'You\'re already on our waitlist! We\'ll keep you updated.'
-                    : 'Sorry, there was an error. Please try again.';
-                
-                alert(errorMessage);
-            } finally {
-                // Re-enable form
-                submitButton.disabled = false;
-                formInputs.forEach(input => {
-                    input.disabled = false;
-                });
-            }
-        });
-    });
 }
 
 // Smooth Scrolling for Navigation Links
@@ -319,7 +116,7 @@ function initializeScrollAnimations() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.problem-card, .feature-card, .stat, .session-card');
+    const animateElements = document.querySelectorAll('.problem-card, .feature-card, .stat, .session-card, .pricing-card');
     animateElements.forEach(element => {
         observer.observe(element);
     });
@@ -590,7 +387,7 @@ function resetScheduleToOriginal() {
     privateStudents.textContent = 'Sarah Martinez';
     privateStatus.textContent = 'Confirmed';
     privateStatus.className = 'session-status confirmed';
-    privateName.textContent = 'Private Coaching';
+    privateName.textContent = 'Private Padel';
     
     // Remove any animation classes
     sessionCards.forEach(card => {
