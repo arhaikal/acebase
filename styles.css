@@ -785,17 +785,19 @@ body {
     padding: var(--space-8);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-light);
-    transition: border-color 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .feature-card:hover {
-    border-color: var(--border);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .feature-icon {
-    font-size: var(--font-size-xl);
+    font-size: 2.5rem;
     margin-bottom: var(--space-4);
-    color: var(--text-secondary);
+    display: block;
 }
 
 .feature-card h3 {
@@ -1890,7 +1892,11 @@ body {
         margin-bottom: var(--space-2);
     }
 
-    .feature-icon,
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: var(--space-3);
+    }
+
     .problem-icon {
         font-size: var(--font-size-lg);
         margin-bottom: var(--space-2);
