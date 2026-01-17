@@ -149,6 +149,10 @@ body {
     color: var(--text-primary);
 }
 
+.sign-in-link {
+    font-weight: 500;
+}
+
 .cta-btn-small {
     background: var(--primary-color) !important;
     color: #2D2D2D !important;
@@ -1760,8 +1764,12 @@ body {
         gap: var(--space-3);
     }
 
-    .nav-links a:not(.cta-btn-small) {
+    .nav-links a:not(.cta-btn-small):not(.sign-in-link) {
         display: none;
+    }
+
+    .sign-in-link {
+        font-size: var(--font-size-sm);
     }
 
     .cta-btn-small {
